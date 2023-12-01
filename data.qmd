@@ -34,7 +34,14 @@ The dataset also identifies the regime type for each country at a particular tim
 
 You may access more informative data descriptions with *codebooks* for the [CDP](https://databank.illinois.edu/datasets/IDB-3143201) and the [REIGN](https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html) (download links provided at the end of both pages) data, and you may import the latest version to the local environment for the [CDP](https://databank.illinois.edu/datasets/IDB-3143201) and the [REIGN](https://github.com/OEFDataScience/REIGN.github.io/blob/gh-pages/data_sets/REIGN_2021_8.csv) data. **Note**: due to maintenance issues, the REIGN data cannot be downloaded directly from their website but can be obtained through GitHub.
 
+### Data Import & Cleaning
+
+We plan to download the data to our local environments and then merge them using SQL functions provided in the `sqldf` package, on keys `country`, `year`, and `month`. The precise import and cleaning steps are given in later sections.
+
+Because both datasets keep track of events happening in the early last century, it can be expected that they contain many missing values. Also, as we have observed, sometimes country names do not match in both datasets. Therefore, we need to clean the data in the preprocessing procedure.
+
 ## Research Plan
+
 We merge the two datasets to provide a more comprehensive picture on the political backgrounds of the coups. Using a left join from the REIGN data to the CDP data, we introduce additional information such as the type of government, coup risk, level of political violence, among many others at the time of the coup. With the merged dataset, we seek to answer the questions posed in the introduction in the following ways:
 
 1. Data Exploration: We will visualize the distribution of all features using a variety of plots – barplots, scatterplots, Cleveland dot plots – as appropriate to gain an initial understanding to the data we are working with. This will allow us to decide what features to pay special attention to in the following steps.
@@ -42,6 +49,9 @@ We merge the two datasets to provide a more comprehensive picture on the politic
 3. Time series analysis: Since the data we have range from 1945 to 2020, it provides a great opportunity for us to conduct time series analysis. We plan to at least group the coups by type of government and by region, respectively, to see if the number of coups changed over the span of 75 years. We will also conduct additional time series analysis for any notable factors that stand out from the previous biplot.
 
 ## Missing value analysis
+
+We will mainly focus on the numerical variables as well as `government` data mentioned in the previous section. As discussed, we will apply merging and cleaning to the data and then extract the subset to see if there are any missing values.
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -50,61 +60,44 @@ library(sqldf)
 library(redav)
 
 # Read datasets
-main <- read_csv("/Users/hellothere/Desktop/EDAV Coup Data/Coup data 2.1.2.csv")
-reign <- read_csv("/Users/hellothere/Desktop/EDAV Coup Data/REIGN_2021_8.csv")
+main <- read_csv("/Users/shunji/Downloads/Coup data 2.1.2.csv")
+reign <- read_csv("/Users/shunji/Downloads/REIGN_2021_8.csv")
 
 # Correct country name discrepancies
 reign <- reign %>%
   mutate(country = ifelse(country == "USA", "United States", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Cen African Rep", "Central African Republic", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Dominican Rep", "Dominican Republic", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Germany East", "Germany", country))
-
 main <- main %>%
   mutate(country = ifelse(country == "German Democratic Republic", "Germany", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Guinea Bissau", "Guinea-Bissau", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Korea South", "Republic of Korea", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Vietnam", "Republic of Vietnam", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Vietnam South", "Republic of Vietnam", country))
-
 main <- main %>%
   mutate(country = ifelse(country == "Rumania", "Romania", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Suriname", "Surinam", country))
-
 main <- main %>%
   mutate(country = ifelse(country == "USSR", "Russia", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Yemen South", "Yemen PDR", country))
-
 main <- main %>%
   mutate(country = ifelse(country == "Yemen Arab Republic", "Yemen", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Congo-Brz", "Congo", country))
-
 reign <- reign %>%
   mutate(country = ifelse(country == "Congo/Zaire", "Congo", country))
-
 main <- main %>%
   mutate(country = ifelse(country == "Democratic Republic of the Congo", "Congo", country))
-
 main <- main %>%
   mutate(country = ifelse(country == "Cote d'Ivoire", "Ivory Coast", country))
 
@@ -144,7 +137,10 @@ joined <- subset(joined, select = -c(country, year, month))
 ```{r}
 joined <- joined %>%
   filter_all(any_vars(!is.na(.))) %>%
-  select(c("age", "tenure_months", "lastelection", "dem_duration", "political_violence", "precip", "couprisk", "pctile_risk", "government", "year", "month"))
+  select(c("age", "tenure_months", "lastelection",
+           "dem_duration", "political_violence",
+           "precip", "couprisk", "pctile_risk",
+           "government", "year", "month"))
 
 colSums(is.na(joined)) %>%
   sort(decreasing = TRUE)
@@ -153,4 +149,5 @@ colSums(is.na(joined)) %>%
 ```{r, fig.width=12, fig.height=9}
 plot_missing(joined, percent = FALSE)
 ```
-After we merge the two datasets, we delete all rows that have all null values and arrive at our joined dataset with the same number of observations as the original main dataset, previously referred to as the CDP data. Out of all our features, "couprisk" and "pctile_risk" both have 446 missing values, and all other features have 73 missing values. From the above graph, we can see that roughly 1/3 of the joined dataset don't have any information on the features imported from the REIGN dataset. Given that a lot of coups are from many years ago, it is not shocking that a lot of data is missing. 
+
+After we merge the two datasets, we delete all rows that have all null values and arrive at our joined dataset with the same number of observations as the original main dataset, previously referred to as the CDP data. Out of all our features, `couprisk` and `pctile_risk` both have 446 missing values, and all other features have 73 missing values. From the above graph, we can see that roughly 1/3 of the coup observations do not have information concerning the regime type and other numerical attributes. Given that a lot of coups are from many years ago, it is not shocking that a lot of data is missing. 
