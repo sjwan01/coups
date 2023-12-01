@@ -41,5 +41,116 @@ We merge the two datasets to provide a more comprehensive picture on the politic
 2. Clustering: We will apply PCA to the numerical features mentioned above (added from the REIGN) data to perform dimension reduction before drawing the biplot. We will then be able to see clusters of the different types of government at the time of the coups and identify any outliers. Depending on whether the clusters are clear, we will also be able to infer if the type of government is highly correlated with coups happening. On the other hand, the biplot also provides insight into highly correlated and uncorrelated features, if there are any.
 3. Time series analysis: Since the data we have range from 1945 to 2020, it provides a great opportunity for us to conduct time series analysis. We plan to at least group the coups by type of government and by region, respectively, to see if the number of coups changed over the span of 75 years. We will also conduct additional time series analysis for any notable factors that stand out from the previous biplot.
 
-
 ## Missing value analysis
+```{r}
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(sqldf)
+library(redav)
+
+# Read datasets
+main <- read_csv("/Users/hellothere/Desktop/EDAV Coup Data/Coup data 2.1.2.csv")
+reign <- read_csv("/Users/hellothere/Desktop/EDAV Coup Data/REIGN_2021_8.csv")
+
+# Correct country name discrepancies
+reign <- reign %>%
+  mutate(country = ifelse(country == "USA", "United States", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Cen African Rep", "Central African Republic", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Dominican Rep", "Dominican Republic", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Germany East", "Germany", country))
+
+main <- main %>%
+  mutate(country = ifelse(country == "German Democratic Republic", "Germany", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Guinea Bissau", "Guinea-Bissau", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Korea South", "Republic of Korea", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Vietnam", "Republic of Vietnam", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Vietnam South", "Republic of Vietnam", country))
+
+main <- main %>%
+  mutate(country = ifelse(country == "Rumania", "Romania", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Suriname", "Surinam", country))
+
+main <- main %>%
+  mutate(country = ifelse(country == "USSR", "Russia", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Yemen South", "Yemen PDR", country))
+
+main <- main %>%
+  mutate(country = ifelse(country == "Yemen Arab Republic", "Yemen", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Congo-Brz", "Congo", country))
+
+reign <- reign %>%
+  mutate(country = ifelse(country == "Congo/Zaire", "Congo", country))
+
+main <- main %>%
+  mutate(country = ifelse(country == "Democratic Republic of the Congo", "Congo", country))
+
+main <- main %>%
+  mutate(country = ifelse(country == "Cote d'Ivoire", "Ivory Coast", country))
+
+# Merge the Coup and REIGN datasets on keys country code,
+# country name, the year and month when coups took place.
+
+joined <- sqldf("select distinct m.*, s.*
+                from main m
+                left join reign s on m.country = s.country
+                and m.year = s.year
+                and m.month = s.month")
+
+# Function removing duplicate rows of a coup event.
+# Duplicates may appear if the leadership changes in the year of the coup.
+# In that case, only the first observation will be kept.
+remove_duplicates <- function(data) {
+  coup_id.lst <- vector()
+  row.lst <- c()
+  for(i in 1:nrow(data)) {
+    coup_id <- data$coup_id[i]
+    if (!(coup_id %in% coup_id.lst)) {
+      coup_id.lst[i] <- coup_id
+      row.lst[i] <- i
+    }
+  }
+  return(data[row.lst,])
+}
+
+# Remove duplicate coup events.
+joined <- remove_duplicates(joined)
+
+# Remove duplicate features: country, year, month.
+joined <- subset(joined, select = -c(country, year, month))
+```
+
+
+```{r}
+joined <- joined %>%
+  filter_all(any_vars(!is.na(.))) %>%
+  select(c("age", "tenure_months", "lastelection", "dem_duration", "political_violence", "precip", "couprisk", "pctile_risk", "government", "year", "month"))
+
+colSums(is.na(joined)) %>%
+  sort(decreasing = TRUE)
+```
+
+```{r, fig.width=12, fig.height=9}
+plot_missing(joined, percent = FALSE)
+```
+After we merge the two datasets, we delete all rows that have all null values and arrive at our joined dataset with the same number of observations as the original main dataset, previously referred to as the CDP data. Out of all our features, "couprisk" and "pctile_risk" both have 446 missing values, and all other features have 73 missing values. From the above graph, we can see that roughly 1/3 of the joined dataset don't have any information on the features imported from the REIGN dataset. Given that a lot of coups are from many years ago, it is not shocking that a lot of data is missing. 
