@@ -2,4 +2,36 @@
 
 ## Description
 
+The project makes use of datasets from the following sources:
+
+- [***Coup d'État Project (CDP)***](https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project)
+- [***Rulers, Elections, and Irregular Governance dataset (REIGN)***](https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html)
+
+### The CDP Data
+
+The CDP data is collected by the *Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign*. It was a collaborative work by *Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,* and *Scott Althaus*.
+
+The data is stored in a CSV file. In its latest version, the dataset identifies 981 coup events from 1945 to 2022. For each coup instance, the country and the date it took place, the outcome (whether it is realized, unrealized, or a thwarted conspiracy), the type of its initiator (e.g. military, rebels) as well as the fate the deposed leader (e.g. jailed, fled) are recorded. In total, there are 22 attributes.
+
+On average, it is updated every 6 months, starting from November 16th, 2022 to February 23rd, 2023.
+
+### The REIGN Data
+
+The REIGN data is collected by *Curtis Bell, Clayton Besaw,* and *Matthew Frank* and stored in a CSV file. The dataset is concerning the political leadership, regime attributes, and electoral results for every country dating back to January 1950. In total, the dataset includes 137,219 observations by January 2021 with 41 descriptive features. The features can be generally classified into 3 groups - political leader characteristics, elections and leader change, and government characteristics. Some noticeable continuous variables are:
+
+- `age`: the national leader's age
+- `tenure_months`: the number of months a national leader has been in power during their current tenure
+- `lastelection`: an inverted decay function that measures the time since the last election for the leadership position of the country
+- `dem_duration`: the logged number of months a country has had a democratic government
+- `political violence`: the relative level (Z-score) of political violence experienced within the borders of a country for that year
+- `precip`: the Standardized Precipitation Index (SPI) for each country month
+- `couprisk`: an estimated probability of the risk of a military coup attempt taking place in that month
+- `pctile_risk`: the percentile risk for each country's estimated risk of a military coup attempt that month
+
+The dataset also identifies the regime type for each country at a particular time. On average, the dataset has been updated for 30 times starting from February 7th, 2019 to August 3rd, 2021.
+
+### References
+
+You may access more informative data descriptions with *codebooks* for the [CDP](https://databank.illinois.edu/datasets/IDB-3143201) and the [REIGN](https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html) (download links provided at the end of both pages) data, and you may import the latest version to the local environment for the [CDP](https://databank.illinois.edu/datasets/IDB-3143201) and the [REIGN](https://github.com/OEFDataScience/REIGN.github.io/blob/gh-pages/data_sets/REIGN_2021_8.csv) data. **Note**: due to maintenance issues, the REIGN data cannot be downloaded directly from their website but can be obtained through GitHub.
+
 ## Missing value analysis

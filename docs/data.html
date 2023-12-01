@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TBA - 2&nbsp; Data</title>
+<title>Regime Types Under Coups - 2&nbsp; Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">TBA</a> 
+      <a href="./">Regime Types Under Coups</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/sjwan01/coups" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
@@ -142,7 +142,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description"><span class="header-section-number">2.1</span> Description</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description"><span class="header-section-number">2.1</span> Description</a>
+  <ul class="collapse">
+  <li><a href="#the-cdp-data" id="toc-the-cdp-data" class="nav-link" data-scroll-target="#the-cdp-data"><span class="header-section-number">2.1.1</span> The CDP Data</a></li>
+  <li><a href="#the-reign-data" id="toc-the-reign-data" class="nav-link" data-scroll-target="#the-reign-data"><span class="header-section-number">2.1.2</span> The REIGN Data</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">2.1.3</span> References</a></li>
+  </ul></li>
   <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/sjwan01/coups/edit/main/data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/sjwan01/coups/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -169,6 +174,36 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
+<p>The project makes use of datasets from the following sources:</p>
+<ul>
+<li><a href="https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project"><strong><em>Coup d’État Project (CDP)</em></strong></a></li>
+<li><a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html"><strong><em>Rulers, Elections, and Irregular Governance dataset (REIGN)</em></strong></a></li>
+</ul>
+<section id="the-cdp-data" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="the-cdp-data"><span class="header-section-number">2.1.1</span> The CDP Data</h3>
+<p>The CDP data is collected by the <em>Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign</em>. It was a collaborative work by <em>Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,</em> and <em>Scott Althaus</em>.</p>
+<p>The data is stored in a CSV file. In its latest version, the dataset identifies 981 coup events from 1945 to 2022. For each coup instance, the country and the date it took place, the outcome (whether it is realized, unrealized, or a thwarted conspiracy), the type of its initiator (e.g.&nbsp;military, rebels) as well as the fate the deposed leader (e.g.&nbsp;jailed, fled) are recorded. In total, there are 22 attributes.</p>
+<p>On average, it is updated every 6 months, starting from November 16th, 2022 to February 23rd, 2023.</p>
+</section>
+<section id="the-reign-data" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="the-reign-data"><span class="header-section-number">2.1.2</span> The REIGN Data</h3>
+<p>The REIGN data is collected by <em>Curtis Bell, Clayton Besaw,</em> and <em>Matthew Frank</em> and stored in a CSV file. The dataset is concerning the political leadership, regime attributes, and electoral results for every country dating back to January 1950. In total, the dataset includes 137,219 observations by January 2021 with 41 descriptive features. The features can be generally classified into 3 groups - political leader characteristics, elections and leader change, and government characteristics. Some noticeable continuous variables are:</p>
+<ul>
+<li><code>age</code>: the national leader’s age</li>
+<li><code>tenure_months</code>: the number of months a national leader has been in power during their current tenure</li>
+<li><code>lastelection</code>: an inverted decay function that measures the time since the last election for the leadership position of the country</li>
+<li><code>dem_duration</code>: the logged number of months a country has had a democratic government</li>
+<li><code>political violence</code>: the relative level (Z-score) of political violence experienced within the borders of a country for that year</li>
+<li><code>precip</code>: the Standardized Precipitation Index (SPI) for each country month</li>
+<li><code>couprisk</code>: an estimated probability of the risk of a military coup attempt taking place in that month</li>
+<li><code>pctile_risk</code>: the percentile risk for each country’s estimated risk of a military coup attempt that month</li>
+</ul>
+<p>The dataset also identifies the regime type for each country at a particular time. On average, the dataset has been updated for 30 times starting from February 7th, 2019 to August 3rd, 2021.</p>
+</section>
+<section id="references" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="references"><span class="header-section-number">2.1.3</span> References</h3>
+<p>You may access more informative data descriptions with <em>codebooks</em> for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html">REIGN</a> (download links provided at the end of both pages) data, and you may import the latest version to the local environment for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://github.com/OEFDataScience/REIGN.github.io/blob/gh-pages/data_sets/REIGN_2021_8.csv">REIGN</a> data. <strong>Note</strong>: due to maintenance issues, the REIGN data cannot be downloaded directly from their website but can be obtained through GitHub.</p>
+</section>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
