@@ -23,7 +23,7 @@ The REIGN data is collected by *Curtis Bell, Clayton Besaw,* and *Matthew Frank*
 - `tenure_months`: the number of months a national leader has been in power during their current tenure
 - `lastelection`: an inverted decay function that measures the time since the last election for the leadership position of the country
 - `dem_duration`: the logged number of months a country has had a democratic government
-- `political violence`: the relative level (Z-score) of political violence experienced within the borders of a country for that year
+- `political_violence`: the relative level (Z-score) of political violence experienced within the borders of a country for that year
 - `precip`: the Standardized Precipitation Index (SPI) for each country month
 - `couprisk`: an estimated probability of the risk of a military coup attempt taking place in that month
 - `pctile_risk`: the percentile risk for each country's estimated risk of a military coup attempt that month
