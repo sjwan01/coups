@@ -7,6 +7,8 @@ print(joined)
 library(ggplot2)
 library(GGally)
 library(dplyr)
+library(parcoords)
+library(plotly)
 ```
 ```{r}
 ggplot(joined, aes(x = age)) +
@@ -67,4 +69,46 @@ ggplot(average_couprisk, aes(x = year, y = avg_couprisk, group = 1)) +
        x = "Year",
        y = "Average Coup Risk") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+joined_notime <- joined %>%
+  select(-year, -month)
+
+ggparcoord(joined_notime, scale='globalminmax', alphaLines = 0.5, title = "Static Parallel Coordinates Plot (No Scaler)") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+ggparcoord(joined_notime, scale='std', alphaLines = 0.5, title = "Static Parallel Coordinates Plot (Default Scaler)") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+new_joined_notime <- joined_notime
+new_joined_notime[is.na(new_joined_notime)] = 0
+
+new_joined_notime <- new_joined_notime %>%
+  filter(age > quantile(age, 0.95) |
+         tenure_months > quantile(tenure_months, 0.95) |
+         lastelection > quantile(lastelection, 0.95) |
+         dem_duration > quantile(dem_duration, 0.95) |
+         political_violence > quantile(political_violence, 0.95) |
+         precip > quantile(precip, 0.95) |
+         couprisk > quantile(couprisk, 0.95) |
+          pctile_risk > quantile(pctile_risk, 0.95) )
+
+#| fig-width: 8
+#| fig-height: 4
+#| out-width: 80%
+parcoords(new_joined_notime,
+    rownames = F 
+    , brushMode = "1D-axes"
+    , reorderable = T
+    , queue = T 
+    )
+```
+```{r}
+# Can plot multiple of these graphs if need be
+ggplot(joined, aes(x = age, y = tenure_months)) + geom_point() + facet_wrap(~government)
+```
+```{r}
+plot_ly(data = joined, x = ~age, y = ~tenure_months, type = "scatter", mode = "markers", color = ~government)
 ```
