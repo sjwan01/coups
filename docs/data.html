@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">results.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -184,9 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import"><span class="header-section-number">2.1.4</span> Data Import</a></li>
   </ul></li>
   <li><a href="#research-plan-todo" id="toc-research-plan-todo" class="nav-link" data-scroll-target="#research-plan-todo"><span class="header-section-number">2.2</span> Research Plan (TODO)</a></li>
-  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.3</span> Missing value analysis</a></li>
-  <li><a href="#r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true" id="toc-r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true" class="nav-link" data-scroll-target="#r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true"><span class="header-section-number">3</span> <code>{r} # joined &lt;- joined %&gt;% #   filter_all(any_vars(!is.na(.))) %&gt;% #   select(c("age", "tenure_months", "lastelection", #            "dem_duration", "political_violence", #            "precip", "couprisk", "pctile_risk", #            "government", "year", "month")) %&gt;% #   rename( #     tenure = tenure_months, #     dem_dur = dem_duration, #     poli_vio = political_violence, #     gov = government #   ) #  # colSums(is.na(joined)) %&gt;% #   sort(decreasing = TRUE) #</code></a></li>
-  <li><a href="#r-fig.width12-fig.height9-plot_missingjoined-percent-false" id="toc-r-fig.width12-fig.height9-plot_missingjoined-percent-false" class="nav-link" data-scroll-target="#r-fig.width12-fig.height9-plot_missingjoined-percent-false"><span class="header-section-number">4</span> <code>{r, fig.width=12, fig.height=9} # plot_missing(joined, percent = FALSE) #</code></a></li>
+  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.3</span> Missing Value Analysis</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/sjwan01/coups/edit/main/data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/sjwan01/coups/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -269,12 +267,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> cdp <span class="sc">%&gt;%</span> </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(reign, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"cowcode"</span><span class="ot">=</span><span class="st">"ccode"</span>, <span class="st">"year"</span><span class="ot">=</span><span class="st">"year"</span>, <span class="st">"month"</span><span class="ot">=</span><span class="st">"month"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># duplicates may occur if leadership changed in the year of coups</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(coup_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># export the merged data</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(merged, <span class="at">file =</span> <span class="st">"./data/merged/coup_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/merged/coup_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(coup_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>country.y) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">country =</span> country.x)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># export the merged data</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(merged, <span class="at">file =</span> <span class="st">"./data/merged/coup_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/merged/coup_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Notice that, because observations in both datasets can be dated long ago, it can be expected that there will be many missing values, and they also depend on the geographical location - countries might not be able to provide data for particular measures at some time. In addition, while our data describes the political aspects of countries in a comprehensive manner, bear in mind that coups are also significantly related to economic and social attributes. Although our data provides no information concerning these, feel free to be inspired and add more features for further studies!</p>
@@ -290,15 +289,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.3</span> Missing value analysis</h2>
-<p>We will mainly focus on the numerical variables as well as <code>government</code> data mentioned in the previous section. As discussed, we will apply merging and cleaning to the data and then extract the subset to see if there are any missing values.</p>
-</section>
-<section id="r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> <code>{r} # joined &lt;- joined %&gt;% #   filter_all(any_vars(!is.na(.))) %&gt;% #   select(c("age", "tenure_months", "lastelection", #            "dem_duration", "political_violence", #            "precip", "couprisk", "pctile_risk", #            "government", "year", "month")) %&gt;% #   rename( #     tenure = tenure_months, #     dem_dur = dem_duration, #     poli_vio = political_violence, #     gov = government #   ) #  # colSums(is.na(joined)) %&gt;% #   sort(decreasing = TRUE) #</code></h1>
-</section>
-<section id="r-fig.width12-fig.height9-plot_missingjoined-percent-false" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> <code>{r, fig.width=12, fig.height=9} # plot_missing(joined, percent = FALSE) #</code></h1>
-<p>After we merge the two datasets, we delete all rows that have all null values and arrive at our joined dataset with the same number of observations as the original main dataset, previously referred to as the CDP data. Out of all our features, <code>couprisk</code> and <code>pctile_risk</code> both have 446 missing values, and all other features have 73 missing values. From the above graph, we can see that roughly 1/3 of the coup observations do not have information concerning the regime type and other numerical attributes. Given that a lot of coups are from many years ago, it is not shocking that a lot of data is missing.</p>
+<h2 data-number="2.3" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.3</span> Missing Value Analysis</h2>
+<p>We start with exploring the distribution of missing values in our data.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(merged, <span class="at">num_char =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="1920"></p>
+</div>
+</div>
+<p>We noticed that the data has complete records of the majority instances. Around 40% of the instances only miss <code>couprisk</code> and <code>pctile_risk</code> data, while less than 10% of the instances miss majority of attribute data. In addition, around half of the instances do not have <code>couprisk</code> and <code>pctile_risk</code> data.</p>
+<p>According to the codebook, <code>couprisk</code> is a probability estimated using machine learning and stacking algorithms, and this measure started in January, 1975. At the meantime, <code>pctile_risk</code> corresponds to the percentile risk for each country’s estimated risk of a military coup attempt, and therefore, <code>couprisk</code> and <code>pctile_risk</code> are correlated in their missing patterns.</p>
+<p>Similarly, let’s also observe the missing patterns among the continuous data we defined in the data section, as we will fit PCA on them to analyze how regime types are compared with each other.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>numerical <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"tenure_months"</span>, <span class="st">"lastelection"</span>, <span class="st">"dem_duration"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">"political_violence"</span>, <span class="st">"precip"</span>, <span class="st">"couprisk"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(<span class="fu">select</span>(merged, <span class="fu">all_of</span>(numerical)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<p>We found that missing values are common in this dataset. Did they occur by chance or follow some patterns? We suspect they are related to the time and geographical location - for early observations, some measures such as <code>couprisk</code> were not yet effective, and particular countries might not take some measures locally and thus have no records.</p>
+<p>To prove that our hypothesis is valid, we plot a heatmap of number of missing values by period and region. We determine the count of missing values for a specific period and region by adding up the number of missing values for instances of coups that occurred in that region during the given period.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nas_by_year <span class="ot">&lt;-</span> merged <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cowcode =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    cowcode <span class="sc">==</span> <span class="dv">260</span> <span class="sc">~</span> <span class="dv">255</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    cowcode <span class="sc">==</span> <span class="dv">340</span> <span class="sc">~</span> <span class="dv">345</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    cowcode <span class="sc">==</span> <span class="dv">393</span> <span class="sc">~</span> <span class="dv">365</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> cowcode</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">year =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&lt;</span> <span class="dv">1960</span> <span class="sc">~</span> <span class="st">"&lt;1960"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&lt;</span> <span class="dv">1970</span> <span class="sc">~</span> <span class="st">"1960-1969"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&lt;</span> <span class="dv">1980</span> <span class="sc">~</span> <span class="st">"1970-1979"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&lt;</span> <span class="dv">1990</span> <span class="sc">~</span> <span class="st">"1980-1989"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&lt;</span> <span class="dv">2000</span> <span class="sc">~</span> <span class="st">"1990-1999"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&lt;</span> <span class="dv">2010</span> <span class="sc">~</span> <span class="st">"2000-2009"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"2010-2020"</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">countrycode</span>(cowcode, </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">origin =</span> <span class="st">"cown"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                              <span class="at">destination =</span> <span class="st">"region"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">na_count =</span> <span class="fu">rowSums</span>(<span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, region) <span class="sc">%&gt;%</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sum_nas =</span> <span class="fu">sum</span>(na_count)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(<span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"region"</span>, <span class="st">"sum_nas"</span>)))</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>theme_heat <span class="ot">&lt;-</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nas_by_year, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> year)) <span class="sc">+</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> sum_nas)) <span class="sc">+</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Heatmap of Number of NAs by Year and Region"</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Period"</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"No. of NAs"</span>) <span class="sc">+</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  theme_heat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It turned out the our hypothesis is correct - coups took place in Latin America and Caribbean before 1960 explain most of the missing values. During this time period, coups happened outside of North America, South Asian, and Sub-Saharan Africa also contributed to the total count.</p>
 
 
 </section>
@@ -545,7 +607,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./results.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">results.html</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

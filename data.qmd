@@ -7,6 +7,8 @@ library(tidyr)
 library(tidyverse)
 library(reticulate)
 library(redav)
+library(countrycode)
+library(ggplot2)
 ```
 
 ## Description
@@ -22,10 +24,10 @@ The CDP data is collected by the Cline Center for Advanced Social Research at th
 
 The CDP data is about coup instances. For each instance, it records information concerning
 
--  when and where it took place,
--  the type of its initiator (e.g. military, rebels),
--  the coup outcome (realized or not, or it is just a thwarted conspiracy),
--  the fate of the deposed leader (e.g. jailed, fled).
+-   when and where it took place,
+-   the type of its initiator (e.g. military, rebels),
+-   the coup outcome (realized or not, or it is just a thwarted conspiracy),
+-   the fate of the deposed leader (e.g. jailed, fled).
 
 In its latest version, this dataset identifies 981 coup instances with 22 attributes from 1945 to 2022 and is in the CSV format. On average, new instances and attributes are updated every 6 months, starting from November 16th 2022 to February 24rd 2023.
 
@@ -33,9 +35,9 @@ In its latest version, this dataset identifies 981 coup instances with 22 attrib
 
 The REIGN data is collected by *Curtis Bell, Clayton Besaw,* and *Matthew Frank* in the CSV format. In general, it contains data concerning
 
--  the political leadership,
--  the regime characteristics,
--  the electoral outcomes
+-   the political leadership,
+-   the regime characteristics,
+-   the electoral outcomes
 
 for every country around the globe since January 1950. Each aspect is described through numerous measures in the dataset, and in total, this massive dataset has 137,219 observations with 41 descriptive features by January 2021. Some noticeable numerical features are:
 
@@ -70,7 +72,8 @@ reign <- read.csv("./data/raw/REIGN_2021_8.csv")
 merged <- cdp %>% 
   left_join(reign, by = c("cowcode"="ccode", "year"="year", "month"="month")) %>%
   # duplicates may occur if leadership changed in the year of coups
-  distinct(coup_id, .keep_all = TRUE)
+  distinct(coup_id, .keep_all = TRUE) %>%
+  select(-country.y) %>% rename(country = country.x)
 
 # export the merged data
 write.csv(merged, file = "./data/merged/coup_data.csv", row.names = FALSE)
@@ -88,12 +91,67 @@ We merge the two datasets to provide a more comprehensive picture on the politic
 2.  Clustering: We will apply PCA to the numerical features mentioned above (added from the REIGN) data to perform dimension reduction before drawing the biplot. We will then be able to see clusters of the different types of government at the time of the coups and identify any outliers. Depending on whether the clusters are clear, we will also be able to infer if the type of government is highly correlated with coups happening. On the other hand, the biplot also provides insight into highly correlated and uncorrelated features, if there are any.
 3.  Time series analysis: Since the data we have range from 1945 to 2020, it provides a great opportunity for us to conduct time series analysis. We plan to at least group the coups by type of government and by region, respectively, to see if the number of coups changed over the span of 75 years. We will also conduct additional time series analysis for any notable factors that stand out from the previous biplot.
 
-## Missing value analysis
+## Missing Value Analysis
 
-We will mainly focus on the numerical variables as well as `government` data mentioned in the previous section. As discussed, we will apply merging and cleaning to the data and then extract the subset to see if there are any missing values.
+We start with exploring the distribution of missing values in our data.
 
-# `{r} # joined <- joined %>% #   filter_all(any_vars(!is.na(.))) %>% #   select(c("age", "tenure_months", "lastelection", #            "dem_duration", "political_violence", #            "precip", "couprisk", "pctile_risk", #            "government", "year", "month")) %>% #   rename( #     tenure = tenure_months, #     dem_dur = dem_duration, #     poli_vio = political_violence, #     gov = government #   ) #  # colSums(is.na(joined)) %>% #   sort(decreasing = TRUE) #`
+```{r, message=FALSE, fig.width=20, fig.height=10}
+plot_missing(merged, num_char = 2)
+```
 
-# `{r, fig.width=12, fig.height=9} # plot_missing(joined, percent = FALSE) #`
+We noticed that the data has complete records of the majority instances. Around 40% of the instances only miss `couprisk` and `pctile_risk` data, while less than 10% of the instances miss majority of attribute data. In addition, around half of the instances do not have `couprisk` and `pctile_risk` data.
 
-After we merge the two datasets, we delete all rows that have all null values and arrive at our joined dataset with the same number of observations as the original main dataset, previously referred to as the CDP data. Out of all our features, `couprisk` and `pctile_risk` both have 446 missing values, and all other features have 73 missing values. From the above graph, we can see that roughly 1/3 of the coup observations do not have information concerning the regime type and other numerical attributes. Given that a lot of coups are from many years ago, it is not shocking that a lot of data is missing.
+According to the codebook, `couprisk` is a probability estimated using machine learning and stacking algorithms, and this measure started in January, 1975. At the meantime, `pctile_risk` corresponds to the percentile risk for each country's estimated risk of a military coup attempt, and therefore, `couprisk` and `pctile_risk` are correlated in their missing patterns.
+
+Similarly, let's also observe the missing patterns among the continuous data we defined in the data section, as we will fit PCA on them to analyze how regime types are compared with each other.
+
+```{r, message=FALSE, fig.width=16, fig.height=8}
+numerical <- c("age", "tenure_months", "lastelection", "dem_duration",
+               "political_violence", "precip", "couprisk")
+plot_missing(select(merged, all_of(numerical)))
+```
+
+We found that missing values are common in this dataset. Did they occur by chance or follow some patterns? We suspect they are related to the time and geographical location - for early observations, some measures such as `couprisk` were not yet effective, and particular countries might not take some measures locally and thus have no records.
+
+To prove that our hypothesis is valid, we plot a heatmap of number of missing values by period and region. We determine the count of missing values for a specific period and region by adding up the number of missing values for instances of coups that occurred in that region during the given period.
+
+```{r, message=FALSE}
+nas_by_year <- merged %>%
+  mutate(cowcode = case_when(
+    cowcode == 260 ~ 255,
+    cowcode == 340 ~ 345,
+    cowcode == 393 ~ 365,
+    TRUE ~ cowcode
+  ), year = case_when(
+    year < 1960 ~ "<1960",
+    year < 1970 ~ "1960-1969",
+    year < 1980 ~ "1970-1979",
+    year < 1990 ~ "1980-1989",
+    year < 2000 ~ "1990-1999",
+    year < 2010 ~ "2000-2009",
+    TRUE ~ "2010-2020"
+  )) %>%
+  mutate(region = countrycode(cowcode, 
+                              origin = "cown",
+                              destination = "region")) %>%
+  mutate(na_count = rowSums(is.na(.))) %>%
+  group_by(year, region) %>%
+  summarize(sum_nas = sum(na_count)) %>%
+  select(all_of(c("year", "region", "sum_nas")))
+
+theme_heat <- theme_classic() +
+  theme(axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(angle = 30, hjust = 1))
+
+ggplot(nas_by_year, aes(x = region, y = year)) +
+  geom_tile(aes(fill = sum_nas)) +
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(title = "Heatmap of Number of NAs by Year and Region",
+       x = "Region",
+       y = "Period",
+       fill = "No. of NAs") +
+  theme_heat
+```
+
+It turned out the our hypothesis is correct - coups took place in Latin America and Caribbean before 1960 explain most of the missing values. During this time period, coups happened outside of North America, South Asian, and Sub-Saharan Africa also contributed to the total count.

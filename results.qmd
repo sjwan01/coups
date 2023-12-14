@@ -1,209 +1,147 @@
-<!-- # Results -->
-
-<!-- ```{r} -->
-
-<!-- print(joined) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- library(ggplot2) -->
-
-<!-- library(GGally) -->
-
-<!-- library(dplyr) -->
-
-<!-- library(parcoords) -->
-
-<!-- library(plotly) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- ggplot(joined, aes(x = age)) + -->
-
-<!--   geom_histogram(binwidth = 5, fill = "skyblue", color = "black", alpha = 0.7) + -->
-
-<!--   labs(title = "Distribution of Leader Age", x = "Age", y = "Frequency") + -->
-
-<!--   theme_minimal() -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- ggplot(joined, aes(x = tenure_months)) + -->
-
-<!--   geom_histogram(binwidth = 5, fill = "skyblue", color = "black", alpha = 0.7) + -->
-
-<!--   labs(title = "Distribution of Tenure Months", x = "No. of Months", y = "Frequency") + -->
-
-<!--   theme_minimal() -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- ggplot(joined, aes(x = lastelection)) + -->
-
-<!--   geom_histogram(bins = 30, fill = "skyblue", color = "black", alpha = 0.7) + -->
-
-<!--   labs(title = "Distribution of Time since Last Election", x = "Time since Last Election", y = "Frequency") + -->
-
-<!--   theme_minimal() -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- gov_types <- joined$government -->
-
-<!-- ggplot(joined, aes(x = government, fill = government)) + -->
-
-<!--   geom_bar(stat = "count", color = "black") + -->
-
-<!--   labs(title = "Bar Chart", x = "Government", y = "Count") + -->
-
-<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1)) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- ggplot(joined, aes(x = government, y = tenure_months, fill = government)) + -->
-
-<!--   geom_boxplot() + -->
-
-<!--   labs(title = "Boxplot of Tenure Months by Government Type", x = "Government Type", y = "Tenure Months") + -->
-
-<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1)) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- columns_to_exclude <- c("year", "month") -->
-
-<!-- df_subset <- joined[, !(names(joined) %in% columns_to_exclude)] -->
-
-<!-- ggpairs(df_subset[, sapply(df_subset, is.numeric)]) + -->
-
-<!--   theme_grey(base_size = 8) + -->
-
-<!--   theme(axis.text = element_text(size = 6), -->
-
-<!--         strip.text = element_text(size = 6), -->
-
-<!--         text = element_text(size = 6)) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- joined$year <- as.factor(joined$year) -->
-
-<!-- average_couprisk <- joined %>% -->
-
-<!--   group_by(year) %>% -->
-
-<!--   summarise(avg_couprisk = mean(couprisk, na.rm = TRUE)) -->
-
-<!-- average_couprisk <- average_couprisk %>% -->
-
-<!--   filter(!is.na(avg_couprisk)) -->
-
-<!-- ggplot(average_couprisk, aes(x = year, y = avg_couprisk, group = 1)) + -->
-
-<!--   geom_line() + -->
-
-<!--   geom_smooth(method = "loess", se = FALSE, color = "blue") + -->
-
-<!--   labs(title = "Coup Risk Over Time with Loess Smoother", -->
-
-<!--        x = "Year", -->
-
-<!--        y = "Average Coup Risk") + -->
-
-<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1)) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- joined_notime <- joined %>% -->
-
-<!--   select(-year, -month) -->
-
-<!-- ggparcoord(joined_notime, scale='globalminmax', alphaLines = 0.5, title = "Static Parallel Coordinates Plot (No Scaler)") +  -->
-
-<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1)) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- ggparcoord(joined_notime, scale='std', alphaLines = 0.5, title = "Static Parallel Coordinates Plot (Default Scaler)") +  -->
-
-<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1)) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- new_joined_notime <- joined_notime -->
-
-<!-- new_joined_notime[is.na(new_joined_notime)] = 0 -->
-
-<!-- new_joined_notime <- new_joined_notime %>% -->
-
-<!--   filter(age > quantile(age, 0.95) | -->
-
-<!--          tenure_months > quantile(tenure_months, 0.95) | -->
-
-<!--          lastelection > quantile(lastelection, 0.95) | -->
-
-<!--          dem_duration > quantile(dem_duration, 0.95) | -->
-
-<!--          political_violence > quantile(political_violence, 0.95) | -->
-
-<!--          precip > quantile(precip, 0.95) | -->
-
-<!--          couprisk > quantile(couprisk, 0.95) | -->
-
-<!--           pctile_risk > quantile(pctile_risk, 0.95) ) -->
-
-<!-- #| fig-width: 8 -->
-
-<!-- #| fig-height: 4 -->
-
-<!-- #| out-width: 80% -->
-
-<!-- parcoords(new_joined_notime, -->
-
-<!--     rownames = F  -->
-
-<!--     , brushMode = "1D-axes" -->
-
-<!--     , reorderable = T -->
-
-<!--     , queue = T  -->
-
-<!--     ) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- # Can plot multiple of these graphs if need be -->
-
-<!-- ggplot(joined, aes(x = age, y = tenure_months)) + geom_point() + facet_wrap(~government) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- plot_ly(data = joined, x = ~age, y = ~tenure_months, type = "scatter", mode = "markers", color = ~government) -->
-
-<!-- ``` -->
+# Results
+
+```{r}
+
+joined <- read.csv("./data/merged/coup_data.csv")
+
+```
+# Results
+```{r}
+print(joined)
+```
+
+```{r}
+library(ggplot2)
+library(GGally)
+library(dplyr)
+library(parcoords)
+library(plotly)
+```
+```{r}
+age_hist <- ggplot(joined, aes(x = age)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Leader Age", x = "Age", y = "Frequency") +
+  theme_minimal()
+suppressWarnings(print(age_hist))
+```
+```{r}
+tenure_hist <- ggplot(joined, aes(x = tenure)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Tenure Months", x = "No. of Months", y = "Frequency") +
+  theme_minimal()
+suppressWarnings(print(tenure_hist))
+```
+```{r}
+ls_hist <- ggplot(joined, aes(x = lastelection)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Time since Last Election", x = "Time since Last Election", y = "Frequency") +
+  theme_minimal()
+suppressWarnings(print(ls_hist))
+```
+
+```{r}
+gov_types <- joined$gov
+ggplot(joined, aes(x = gov, fill = gov)) +
+  geom_bar(stat = "count", color = "black") +
+  labs(title = "Bar Chart", x = "Government", y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+bp <- ggplot(joined, aes(x = gov, y = tenure, fill = gov)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Tenure Months by Government Type", x = "Government Type", y = "Tenure Months") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+suppressWarnings(print(bp))
+```
+```{r}
+columns_to_exclude <- c("year", "month")
+df_subset <- joined[, !(names(joined) %in% columns_to_exclude)]
+
+pairs <- ggpairs(df_subset[, sapply(df_subset, is.numeric)]) +
+  theme_grey(base_size = 8) +
+  theme(axis.text = element_text(size = 6),
+        strip.text = element_text(size = 6),
+        text = element_text(size = 6))
+
+suppressWarnings(print(pairs, progress=FALSE))
+```
+```{r}
+joined$year <- as.factor(joined$year)
+
+average_couprisk <- joined %>%
+  group_by(year) %>%
+  summarise(avg_couprisk = mean(couprisk, na.rm = TRUE))
+
+average_couprisk <- average_couprisk %>%
+  filter(!is.na(avg_couprisk))
+
+ggplot(average_couprisk, aes(x = year, y = avg_couprisk, group = 1)) +
+  geom_line() +
+  geom_smooth(method = "loess", se = FALSE, color = "blue") +
+  labs(title = "Coup Risk Over Time with Loess Smoother",
+       x = "Year",
+       y = "Average Coup Risk") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+joined_notime <- joined %>%
+  select(-year, -month)
+
+ggparcoord(joined_notime, scale='globalminmax', alphaLines = 0.5, title = "Static Parallel Coordinates Plot (No Scaler)") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+ggparcoord(joined_notime, scale='std', alphaLines = 0.5, title = "Static Parallel Coordinates Plot (Default Scaler)") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+new_joined_notime <- joined_notime
+new_joined_notime[is.na(new_joined_notime)] = 0
+
+new_joined_notime <- new_joined_notime %>%
+  filter(age > quantile(age, 0.95) |
+         tenure_months > quantile(tenure_months, 0.95) |
+         lastelection > quantile(lastelection, 0.95) |
+         dem_duration > quantile(dem_duration, 0.95) |
+         political_violence > quantile(political_violence, 0.95) |
+         precip > quantile(precip, 0.95) |
+         couprisk > quantile(couprisk, 0.95) |
+          pctile_risk > quantile(pctile_risk, 0.95) )
+
+#| fig-width: 8
+#| fig-height: 4
+#| out-width: 80%
+parcoords(new_joined_notime,
+    rownames = F 
+    , brushMode = "1D-axes"
+    , reorderable = T
+    , queue = T 
+    )
+```
+```{r}
+# Can plot multiple of these graphs if need be
+ggplot(joined, aes(x = age, y = tenure)) + geom_point() + facet_wrap(~gov)
+```
+```{r}
+plot_ly(data = joined, x = ~age, y = ~tenure, type = "scatter", mode = "markers", color = ~gov)
+```
+
+## Biplot
+
+```{r}
+biplot <- joined %>% select(-c('year', 'month'))
+biplot
+```
+
+```{r}
+means <- joined %>% select(-c('year', 'month')) %>%
+  group_by(government) %>%
+  summarize(across(-1, ~mean(., na.rm = TRUE), .names = '{.col}')) %>%
+  na.omit()
+means
+```
+```{r}
+draw_biplot(means)
+
+```
