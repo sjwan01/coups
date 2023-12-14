@@ -83,4 +83,7 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
       function handleMouseOut() {
         tooltip.style("visibility", "hidden");
       }
+
+      const descriptionDiv = d3.select("#description");
+      descriptionDiv.html("Here we have an interactive time series histogram, where the x-axis displays the years in 5-year intervals and the y-axis displays the count of coups. The reader may hover over each bar to see the average coup        risk for each 5-year interval.");
     });
