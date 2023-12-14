@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">results.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -183,8 +183,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">2.1.3</span> References</a></li>
   <li><a href="#data-import-cleaning" id="toc-data-import-cleaning" class="nav-link" data-scroll-target="#data-import-cleaning"><span class="header-section-number">2.1.4</span> Data Import &amp; Cleaning</a></li>
   </ul></li>
-  <li><a href="#research-plan" id="toc-research-plan" class="nav-link" data-scroll-target="#research-plan"><span class="header-section-number">2.2</span> Research Plan</a></li>
+  <li><a href="#research-plan-todo" id="toc-research-plan-todo" class="nav-link" data-scroll-target="#research-plan-todo"><span class="header-section-number">2.2</span> Research Plan (TODO)</a></li>
   <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.3</span> Missing value analysis</a></li>
+  <li><a href="#r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true" id="toc-r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true" class="nav-link" data-scroll-target="#r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true"><span class="header-section-number">3</span> <code>{r} # joined &lt;- joined %&gt;% #   filter_all(any_vars(!is.na(.))) %&gt;% #   select(c("age", "tenure_months", "lastelection", #            "dem_duration", "political_violence", #            "precip", "couprisk", "pctile_risk", #            "government", "year", "month")) %&gt;% #   rename( #     tenure = tenure_months, #     dem_dur = dem_duration, #     poli_vio = political_violence, #     gov = government #   ) #  # colSums(is.na(joined)) %&gt;% #   sort(decreasing = TRUE) #</code></a></li>
+  <li><a href="#r-fig.width12-fig.height9-plot_missingjoined-percent-false" id="toc-r-fig.width12-fig.height9-plot_missingjoined-percent-false" class="nav-link" data-scroll-target="#r-fig.width12-fig.height9-plot_missingjoined-percent-false"><span class="header-section-number">4</span> <code>{r, fig.width=12, fig.height=9} # plot_missing(joined, percent = FALSE) #</code></a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/sjwan01/coups/edit/main/data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/sjwan01/coups/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -212,42 +214,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
 <p>The project makes use of datasets from the following sources:</p>
 <ul>
-<li><a href="https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project"><strong><em>Coup d’État Project (CDP)</em></strong></a></li>
+<li><a href="https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project"><strong>Coup d’État Project (CDP)</strong></a></li>
 <li><a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html"><strong><em>Rulers, Elections, and Irregular Governance dataset (REIGN)</em></strong></a></li>
 </ul>
 <section id="the-cdp-data" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="the-cdp-data"><span class="header-section-number">2.1.1</span> The CDP Data</h3>
-<p>The CDP data is collected by the <em>Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign</em>. It was a collaborative work by <em>Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,</em> and <em>Scott Althaus</em>.</p>
-<p>The data is stored in a CSV file. In its latest version, the dataset identifies 981 coup events from 1945 to 2022. For each coup instance, the country and the date it took place, the outcome (whether it is realized, unrealized, or a thwarted conspiracy), the type of its initiator (e.g.&nbsp;military, rebels) as well as the fate the deposed leader (e.g.&nbsp;jailed, fled) are recorded. In total, there are 22 attributes.</p>
-<p>On average, it is updated every 6 months, starting from November 16th, 2022 to February 23rd, 2023.</p>
+<p>The CDP data is collected by the <strong>Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign</strong>. It was a collaborative work by <em>Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,</em> and <em>Scott Althaus</em>.</p>
+<p>The CDP data is about coup instances. For each instance, it records information concerning</p>
+<ol type="1">
+<li>when and where it took place,</li>
+<li>the type of its initiator (e.g.&nbsp;military, rebels),</li>
+<li>the coup outcome (realized or not, or it is just a thwarted conspiracy),</li>
+<li>the fate of the deposed leader (e.g.&nbsp;jailed, fled).</li>
+</ol>
+<p>In its latest version, this dataset identifies 981 coup instances with 22 attributes from 1945 to 2022 and is in the CSV format. On average, new instances and attributes are updated every 6 months, starting from November 16th 2022 to February 24rd 2023.</p>
 </section>
 <section id="the-reign-data" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="the-reign-data"><span class="header-section-number">2.1.2</span> The REIGN Data</h3>
-<p>The REIGN data is collected by <em>Curtis Bell, Clayton Besaw,</em> and <em>Matthew Frank</em> and stored in a CSV file. The dataset is concerning the political leadership, regime attributes, and electoral results for every country dating back to January 1950. In total, the dataset includes 137,219 observations by January 2021 with 41 descriptive features. The features can be generally classified into 3 groups - political leader characteristics, elections and leader change, and government characteristics. Some noticeable continuous variables are:</p>
+<p>The REIGN data is collected by <em>Curtis Bell, Clayton Besaw,</em> and <em>Matthew Frank</em> in the CSV format. In general, it contains data concerning</p>
+<ol type="1">
+<li>the political leadership,</li>
+<li>the regime characteristics,</li>
+<li>the electoral outcomes</li>
+</ol>
+<p>for every country around the globe since January 1950. Each aspect is described through numerous measures in the dataset, and in total, this massive dataset has 137,219 observations with 41 descriptive features by January 2021. Some noticeable numerical features are:</p>
 <ul>
 <li><code>age</code>: the national leader’s age</li>
-<li><code>tenure_months</code>: the number of months a national leader has been in power during their current tenure</li>
+<li><code>tenure_months</code>: the number of months a leader has been in power</li>
 <li><code>lastelection</code>: an inverted decay function that measures the time since the last election for the leadership position of the country</li>
 <li><code>dem_duration</code>: the logged number of months a country has had a democratic government</li>
 <li><code>political_violence</code>: the relative level (Z-score) of political violence experienced within the borders of a country for that year</li>
 <li><code>precip</code>: the Standardized Precipitation Index (SPI) for each country month</li>
-<li><code>couprisk</code>: an estimated probability of the risk of a military coup attempt taking place in that month</li>
-<li><code>pctile_risk</code>: the percentile risk for each country’s estimated risk of a military coup attempt that month</li>
+<li><code>couprisk</code>: an estimated probability of the risk of a military coup attempt</li>
 </ul>
-<p>The dataset also identifies the regime type for each country at a particular time. On average, the dataset has been updated for 30 times starting from February 7th, 2019 to August 3rd, 2021.</p>
+<p>Notice that the REIGN is not coup-specific. It is a supporting source that helps us better describe the political ecosystem of a country experiencing coups. So far, this dataset has been updated for 30 times starting from February 7th, 2019 to August 3rd, 2021.</p>
 </section>
 <section id="references" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="references"><span class="header-section-number">2.1.3</span> References</h3>
-<p>You may access more informative data descriptions with <em>codebooks</em> for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html">REIGN</a> (download links provided at the end of both pages) data, and you may import the latest version to the local environment for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://github.com/OEFDataScience/REIGN.github.io/blob/gh-pages/data_sets/REIGN_2021_8.csv">REIGN</a> data. <strong>Note</strong>: due to maintenance issues, the REIGN data cannot be downloaded directly from their website but can be obtained through GitHub.</p>
+<p>You may access more informative data descriptions with <em>codebooks</em> for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html">REIGN</a> data (download links provided at the end of both webpages), and you may download the latest data to your local environment for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://github.com/OEFDataScience/REIGN.github.io/blob/gh-pages/data_sets/REIGN_2021_8.csv">REIGN</a> data.</p>
+<p><strong>Note</strong>: due to maintenance issues, the REIGN data cannot be downloaded directly from their website but can be obtained through their GitHub repo.</p>
 </section>
 <section id="data-import-cleaning" class="level3" data-number="2.1.4">
 <h3 data-number="2.1.4" class="anchored" data-anchor-id="data-import-cleaning"><span class="header-section-number">2.1.4</span> Data Import &amp; Cleaning</h3>
-<p>We plan to download the data to our local environments and then merge them using SQL functions provided in the <code>sqldf</code> package, on keys <code>country</code>, <code>year</code>, and <code>month</code>. The precise import and cleaning steps are given in later sections.</p>
-<p>Because both datasets keep track of events happening in the early last century, it can be expected that they contain many missing values. Also, as we have observed, sometimes country names do not match in both datasets. Therefore, we need to clean the data in the preprocessing procedure.</p>
+<p>We have made a copy of the datasets and saved them in the <code>data/raw</code> folder of this project. This makes us - as well as you - to import the data.</p>
+<p>As mentioned, the REIGN data serves as a supporting role. As a preprocessing step, we will merge the REIGN data with the CDP data using keys <code>country</code>, <code>year</code>, and <code>month</code> and keep instances in the CDP data unique. You may find the merged data in the <code>data/merged</code> folder of this project.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read both data from the project repo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cdp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/raw/Coup data 2.1.2.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/raw/REIGN_2021_8.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># merged data using keys</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> cdp <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(reign, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"cowcode"</span><span class="ot">=</span><span class="st">"ccode"</span>, <span class="st">"year"</span><span class="ot">=</span><span class="st">"year"</span>, <span class="st">"month"</span><span class="ot">=</span><span class="st">"month"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># duplicates may occur if leadership changed in the year of coups</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(coup_id, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># export the merged data</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(merged, <span class="at">file =</span> <span class="st">"./data/merged/coup_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/merged/coup_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Notice that, because observations in both datasets can be dated long ago, it can be expected that there will be many missing values, and they also depend on the geographical location - countries might not be able to provide data for particular measures at some time. In addition, while our data describes the political aspects of countries in a comprehensive manner, bear in mind that coups are also significantly related to economic and social attributes. Although our data provides no information concerning these, feel free to be inspired and add more features for further studies!</p>
 </section>
 </section>
-<section id="research-plan" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="research-plan"><span class="header-section-number">2.2</span> Research Plan</h2>
+<section id="research-plan-todo" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="research-plan-todo"><span class="header-section-number">2.2</span> Research Plan (TODO)</h2>
 <p>We merge the two datasets to provide a more comprehensive picture on the political backgrounds of the coups. Using a left join from the REIGN data to the CDP data, we introduce additional information such as the type of government, coup risk, level of political violence, among many others at the time of the coup. With the merged dataset, we seek to answer the questions posed in the introduction in the following ways:</p>
 <ol type="1">
 <li>Data Exploration: We will visualize the distribution of all features using a variety of plots – barplots, scatterplots, Cleveland dot plots – as appropriate to gain an initial understanding to the data we are working with. This will allow us to decide what features to pay special attention to in the following steps.</li>
@@ -258,186 +292,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="missing-value-analysis" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.3</span> Missing value analysis</h2>
 <p>We will mainly focus on the numerical variables as well as <code>government</code> data mentioned in the previous section. As discussed, we will apply merging and cleaning to the data and then extract the subset to see if there are any missing values.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ forcats   1.0.0     ✔ readr     2.1.4
-✔ ggplot2   3.4.4     ✔ stringr   1.5.1
-✔ lubridate 1.9.3     ✔ tibble    3.2.1
-✔ purrr     1.0.2     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sqldf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: gsubfn
-Loading required package: proto
-Loading required package: RSQLite</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(redav)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read datasets</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"/Users/shunji/Downloads/Coup data 2.1.2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 981 Columns: 29
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (3): coup_id, country, event_type
-dbl (26): cowcode, year, month, day, unrealized, realized, conspiracy, attem...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"/Users/shunji/Downloads/REIGN_2021_8.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 138600 Columns: 41
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (3): country, leader, government
-dbl (38): ccode, year, month, elected, age, male, militarycareer, tenure_mon...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correct country name discrepancies</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"USA"</span>, <span class="st">"United States"</span>, country))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Cen African Rep"</span>, <span class="st">"Central African Republic"</span>, country))</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Dominican Rep"</span>, <span class="st">"Dominican Republic"</span>, country))</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Germany East"</span>, <span class="st">"Germany"</span>, country))</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> main <span class="sc">%&gt;%</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"German Democratic Republic"</span>, <span class="st">"Germany"</span>, country))</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Guinea Bissau"</span>, <span class="st">"Guinea-Bissau"</span>, country))</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Korea South"</span>, <span class="st">"Republic of Korea"</span>, country))</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Vietnam"</span>, <span class="st">"Republic of Vietnam"</span>, country))</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Vietnam South"</span>, <span class="st">"Republic of Vietnam"</span>, country))</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> main <span class="sc">%&gt;%</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Rumania"</span>, <span class="st">"Romania"</span>, country))</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Suriname"</span>, <span class="st">"Surinam"</span>, country))</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> main <span class="sc">%&gt;%</span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"USSR"</span>, <span class="st">"Russia"</span>, country))</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Yemen South"</span>, <span class="st">"Yemen PDR"</span>, country))</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> main <span class="sc">%&gt;%</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Yemen Arab Republic"</span>, <span class="st">"Yemen"</span>, country))</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Congo-Brz"</span>, <span class="st">"Congo"</span>, country))</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>reign <span class="ot">&lt;-</span> reign <span class="sc">%&gt;%</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Congo/Zaire"</span>, <span class="st">"Congo"</span>, country))</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> main <span class="sc">%&gt;%</span></span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Democratic Republic of the Congo"</span>, <span class="st">"Congo"</span>, country))</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> main <span class="sc">%&gt;%</span></span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">ifelse</span>(country <span class="sc">==</span> <span class="st">"Cote d'Ivoire"</span>, <span class="st">"Ivory Coast"</span>, country))</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the Coup and REIGN datasets on keys country code,</span></span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="co"># country name, the year and month when coups took place.</span></span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> <span class="fu">sqldf</span>(<span class="st">"select distinct m.*, s.*</span></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="st">                from main m</span></span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="st">                left join reign s on m.country = s.country</span></span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="st">                and m.year = s.year</span></span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="st">                and m.month = s.month"</span>)</span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Function removing duplicate rows of a coup event.</span></span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Duplicates may appear if the leadership changes in the year of the coup.</span></span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="co"># In that case, only the first observation will be kept.</span></span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>remove_duplicates <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>  coup_id.lst <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>  row.lst <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data)) {</span>
-<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>    coup_id <span class="ot">&lt;-</span> data<span class="sc">$</span>coup_id[i]</span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>(coup_id <span class="sc">%in%</span> coup_id.lst)) {</span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>      coup_id.lst[i] <span class="ot">&lt;-</span> coup_id</span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>      row.lst[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data[row.lst,])</span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove duplicate coup events.</span></span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> <span class="fu">remove_duplicates</span>(joined)</span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove duplicate features: country, year, month.</span></span>
-<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> <span class="fu">subset</span>(joined, <span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(country, year, month))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> joined <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_all</span>(<span class="fu">any_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"tenure_months"</span>, <span class="st">"lastelection"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">"dem_duration"</span>, <span class="st">"political_violence"</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">"precip"</span>, <span class="st">"couprisk"</span>, <span class="st">"pctile_risk"</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">"government"</span>, <span class="st">"year"</span>, <span class="st">"month"</span>))</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(joined)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>          couprisk        pctile_risk                age      tenure_months 
-               446                446                 73                 73 
-      lastelection       dem_duration political_violence             precip 
-                73                 73                 73                 73 
-        government               year              month 
-                73                 73                 73 </code></pre>
-</div>
-</div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(joined, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="1152"></p>
-</div>
-</div>
+</section>
+<section id="r-joined---joined-filter_allany_varsis.na.-selectcage-tenure_months-lastelection-dem_duration-political_violence-precip-couprisk-pctile_risk-government-year-month-rename-tenure-tenure_months-dem_dur-dem_duration-poli_vio-political_violence-gov-government-colsumsis.najoined-sortdecreasing-true" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> <code>{r} # joined &lt;- joined %&gt;% #   filter_all(any_vars(!is.na(.))) %&gt;% #   select(c("age", "tenure_months", "lastelection", #            "dem_duration", "political_violence", #            "precip", "couprisk", "pctile_risk", #            "government", "year", "month")) %&gt;% #   rename( #     tenure = tenure_months, #     dem_dur = dem_duration, #     poli_vio = political_violence, #     gov = government #   ) #  # colSums(is.na(joined)) %&gt;% #   sort(decreasing = TRUE) #</code></h1>
+</section>
+<section id="r-fig.width12-fig.height9-plot_missingjoined-percent-false" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> <code>{r, fig.width=12, fig.height=9} # plot_missing(joined, percent = FALSE) #</code></h1>
 <p>After we merge the two datasets, we delete all rows that have all null values and arrive at our joined dataset with the same number of observations as the original main dataset, previously referred to as the CDP data. Out of all our features, <code>couprisk</code> and <code>pctile_risk</code> both have 446 missing values, and all other features have 73 missing values. From the above graph, we can see that roughly 1/3 of the coup observations do not have information concerning the regime type and other numerical attributes. Given that a lot of coups are from many years ago, it is not shocking that a lot of data is missing.</p>
 
 
@@ -685,7 +545,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./results.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Results</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">results.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
