@@ -27,6 +27,35 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
         .domain([0, d3.max(bins, d => d.length)])
         .range([height, 0]);
 
+      // Tooltip
+      const tooltip = d3.select("div#plot")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "1px")
+        .style("padding", "5px");
+
+      // Mouseover function
+      function handleMouseOver(d) {
+        const averageCoupRisk = d3.mean(data.filter(coup => coup.year >= d.x0 && coup.year < d.x1), coup => +coup.couprisk);
+
+        tooltip.html(`Average Coup Risk: ${averageCoupRisk.toFixed(4)}`)
+          .style("visibility", "visible");
+
+        d3.select(this)
+          .attr("fill", "orange");
+      }
+
+      // Mouseout function
+      function handleMouseOut() {
+        tooltip.style("visibility", "hidden");
+
+        d3.select(this)
+          .attr("fill", "steelblue");
+      }
+
       // Create bars
       const bars = svg.selectAll("rect")
         .data(bins)
@@ -61,29 +90,6 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
         .style("text-anchor", "middle")
         .text("Number of Coups");
 
-      // Tooltip
-      const tooltip = d3.select("div#plot")
-        .append("div")
-        .style("position", "absolute")
-        .style("visibility", "hidden")
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "1px")
-        .style("padding", "5px");
-
-      // Mouseover function
-      function handleMouseOver(d) {
-        const averageCoupRisk = d3.mean(data.filter(coup => coup.year >= d.x0 && coup.year < d.x1), coup => +coup.couprisk);
-
-        tooltip.html(`Average Coup Risk: ${averageCoupRisk.toFixed(4)}`)
-          .style("visibility", "visible");
-      }
-
-      // Mouseout function
-      function handleMouseOut() {
-        tooltip.style("visibility", "hidden");
-      }
-
       const descriptionDiv = d3.select("#description");
-      descriptionDiv.html("Here we have an interactive time series histogram, where the x-axis displays the years in 5-year intervals and the y-axis displays the count of coups. The reader may hover over each bar to see the average coup        risk for each 5-year interval.");
+      descriptionDiv.html("Here we have an interactive time series histogram, where the x-axis displays the years in 5-year intervals and the y-axis displays the count of coups. As the reader hovers over a bar, the bar gets highlighted and displays the average coup risk for the 5-year interval.");
     });
