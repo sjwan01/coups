@@ -181,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-cdp-data" id="toc-the-cdp-data" class="nav-link" data-scroll-target="#the-cdp-data"><span class="header-section-number">2.1.1</span> The CDP Data</a></li>
   <li><a href="#the-reign-data" id="toc-the-reign-data" class="nav-link" data-scroll-target="#the-reign-data"><span class="header-section-number">2.1.2</span> The REIGN Data</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">2.1.3</span> References</a></li>
-  <li><a href="#data-import-cleaning" id="toc-data-import-cleaning" class="nav-link" data-scroll-target="#data-import-cleaning"><span class="header-section-number">2.1.4</span> Data Import &amp; Cleaning</a></li>
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import"><span class="header-section-number">2.1.4</span> Data Import</a></li>
   </ul></li>
   <li><a href="#research-plan-todo" id="toc-research-plan-todo" class="nav-link" data-scroll-target="#research-plan-todo"><span class="header-section-number">2.2</span> Research Plan (TODO)</a></li>
   <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.3</span> Missing value analysis</a></li>
@@ -214,35 +214,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
 <p>The project makes use of datasets from the following sources:</p>
 <ul>
-<li><a href="https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project"><strong>Coup d’État Project (CDP)</strong></a></li>
-<li><a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html"><strong><em>Rulers, Elections, and Irregular Governance dataset (REIGN)</em></strong></a></li>
+<li><a href="https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project">Coup d’État Project (CDP)</a></li>
+<li><a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html">Rulers, Elections, and Irregular Governance dataset (REIGN)</a></li>
 </ul>
 <section id="the-cdp-data" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="the-cdp-data"><span class="header-section-number">2.1.1</span> The CDP Data</h3>
-<p>The CDP data is collected by the <strong>Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign</strong>. It was a collaborative work by <em>Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,</em> and <em>Scott Althaus</em>.</p>
+<p>The CDP data is collected by the Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign. It was a collaborative work by <em>Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,</em> and <em>Scott Althaus</em>.</p>
 <p>The CDP data is about coup instances. For each instance, it records information concerning</p>
-<ol type="1">
+<ul>
 <li>when and where it took place,</li>
 <li>the type of its initiator (e.g.&nbsp;military, rebels),</li>
 <li>the coup outcome (realized or not, or it is just a thwarted conspiracy),</li>
 <li>the fate of the deposed leader (e.g.&nbsp;jailed, fled).</li>
-</ol>
+</ul>
 <p>In its latest version, this dataset identifies 981 coup instances with 22 attributes from 1945 to 2022 and is in the CSV format. On average, new instances and attributes are updated every 6 months, starting from November 16th 2022 to February 24rd 2023.</p>
 </section>
 <section id="the-reign-data" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="the-reign-data"><span class="header-section-number">2.1.2</span> The REIGN Data</h3>
 <p>The REIGN data is collected by <em>Curtis Bell, Clayton Besaw,</em> and <em>Matthew Frank</em> in the CSV format. In general, it contains data concerning</p>
-<ol type="1">
+<ul>
 <li>the political leadership,</li>
 <li>the regime characteristics,</li>
 <li>the electoral outcomes</li>
-</ol>
+</ul>
 <p>for every country around the globe since January 1950. Each aspect is described through numerous measures in the dataset, and in total, this massive dataset has 137,219 observations with 41 descriptive features by January 2021. Some noticeable numerical features are:</p>
 <ul>
 <li><code>age</code>: the national leader’s age</li>
 <li><code>tenure_months</code>: the number of months a leader has been in power</li>
 <li><code>lastelection</code>: an inverted decay function that measures the time since the last election for the leadership position of the country</li>
-<li><code>dem_duration</code>: the logged number of months a country has had a democratic government</li>
+<li><code>dem_duration</code>: the logged number of months under democratic ruling</li>
 <li><code>political_violence</code>: the relative level (Z-score) of political violence experienced within the borders of a country for that year</li>
 <li><code>precip</code>: the Standardized Precipitation Index (SPI) for each country month</li>
 <li><code>couprisk</code>: an estimated probability of the risk of a military coup attempt</li>
@@ -254,10 +254,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You may access more informative data descriptions with <em>codebooks</em> for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html">REIGN</a> data (download links provided at the end of both webpages), and you may download the latest data to your local environment for the <a href="https://databank.illinois.edu/datasets/IDB-3143201">CDP</a> and the <a href="https://github.com/OEFDataScience/REIGN.github.io/blob/gh-pages/data_sets/REIGN_2021_8.csv">REIGN</a> data.</p>
 <p><strong>Note</strong>: due to maintenance issues, the REIGN data cannot be downloaded directly from their website but can be obtained through their GitHub repo.</p>
 </section>
-<section id="data-import-cleaning" class="level3" data-number="2.1.4">
-<h3 data-number="2.1.4" class="anchored" data-anchor-id="data-import-cleaning"><span class="header-section-number">2.1.4</span> Data Import &amp; Cleaning</h3>
-<p>We have made a copy of the datasets and saved them in the <code>data/raw</code> folder of this project. This makes us - as well as you - to import the data.</p>
-<p>As mentioned, the REIGN data serves as a supporting role. As a preprocessing step, we will merge the REIGN data with the CDP data using keys <code>country</code>, <code>year</code>, and <code>month</code> and keep instances in the CDP data unique. You may find the merged data in the <code>data/merged</code> folder of this project.</p>
+<section id="data-import" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="data-import"><span class="header-section-number">2.1.4</span> Data Import</h3>
+<p>We have made a copy of the datasets and saved them in the <code>./data/raw</code> folder of this project. This makes us - as well as you - to import the data.</p>
+<p>As mentioned, the REIGN data serves as a supporting role. As a preprocessing step, we will merge the REIGN data with the CDP data using keys <code>country</code>, <code>year</code>, and <code>month</code> and keep instances in the CDP data unique. You may find the merged data in the <code>./data/merged</code> folder.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>

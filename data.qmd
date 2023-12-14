@@ -13,19 +13,19 @@ library(redav)
 
 The project makes use of datasets from the following sources:
 
--   [**Coup d'État Project (CDP)**](https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project)
--   [***Rulers, Elections, and Irregular Governance dataset (REIGN)***](https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html)
+-   [Coup d'État Project (CDP)](https://clinecenter.illinois.edu/project/research-themes/democracy-and-development/coup-detat-project)
+-   [Rulers, Elections, and Irregular Governance dataset (REIGN)](https://oefdatascience.github.io/REIGN.github.io/menu/reign_current.html)
 
 ### The CDP Data
 
-The CDP data is collected by the **Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign**. It was a collaborative work by *Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,* and *Scott Althaus*.
+The CDP data is collected by the Cline Center for Advanced Social Research at the University of Illinois Urbana-Champaign. It was a collaborative work by *Buddy Peyton, Joseph Bajjalieh, Dan Shalmon, Michael Martin, Jonathan Bonaguro,* and *Scott Althaus*.
 
 The CDP data is about coup instances. For each instance, it records information concerning
 
-1.  when and where it took place,
-2.  the type of its initiator (e.g. military, rebels),
-3.  the coup outcome (realized or not, or it is just a thwarted conspiracy),
-4.  the fate of the deposed leader (e.g. jailed, fled).
+-  when and where it took place,
+-  the type of its initiator (e.g. military, rebels),
+-  the coup outcome (realized or not, or it is just a thwarted conspiracy),
+-  the fate of the deposed leader (e.g. jailed, fled).
 
 In its latest version, this dataset identifies 981 coup instances with 22 attributes from 1945 to 2022 and is in the CSV format. On average, new instances and attributes are updated every 6 months, starting from November 16th 2022 to February 24rd 2023.
 
@@ -33,16 +33,16 @@ In its latest version, this dataset identifies 981 coup instances with 22 attrib
 
 The REIGN data is collected by *Curtis Bell, Clayton Besaw,* and *Matthew Frank* in the CSV format. In general, it contains data concerning
 
-1.  the political leadership,
-2.  the regime characteristics,
-3.  the electoral outcomes
+-  the political leadership,
+-  the regime characteristics,
+-  the electoral outcomes
 
 for every country around the globe since January 1950. Each aspect is described through numerous measures in the dataset, and in total, this massive dataset has 137,219 observations with 41 descriptive features by January 2021. Some noticeable numerical features are:
 
 -   `age`: the national leader's age
 -   `tenure_months`: the number of months a leader has been in power
 -   `lastelection`: an inverted decay function that measures the time since the last election for the leadership position of the country
--   `dem_duration`: the logged number of months a country has had a democratic government
+-   `dem_duration`: the logged number of months under democratic ruling
 -   `political_violence`: the relative level (Z-score) of political violence experienced within the borders of a country for that year
 -   `precip`: the Standardized Precipitation Index (SPI) for each country month
 -   `couprisk`: an estimated probability of the risk of a military coup attempt
@@ -55,11 +55,11 @@ You may access more informative data descriptions with *codebooks* for the [CDP]
 
 **Note**: due to maintenance issues, the REIGN data cannot be downloaded directly from their website but can be obtained through their GitHub repo.
 
-### Data Import & Cleaning
+### Data Import
 
-We have made a copy of the datasets and saved them in the `data/raw` folder of this project. This makes us - as well as you - to import the data.
+We have made a copy of the datasets and saved them in the `./data/raw` folder of this project. This makes us - as well as you - to import the data.
 
-As mentioned, the REIGN data serves as a supporting role. As a preprocessing step, we will merge the REIGN data with the CDP data using keys `country`, `year`, and `month` and keep instances in the CDP data unique. You may find the merged data in the `data/merged` folder of this project.
+As mentioned, the REIGN data serves as a supporting role. As a preprocessing step, we will merge the REIGN data with the CDP data using keys `country`, `year`, and `month` and keep instances in the CDP data unique. You may find the merged data in the `./data/merged` folder.
 
 ```{r, warning=FALSE}
 # read both data from the project repo
