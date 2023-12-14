@@ -4,10 +4,14 @@
   * {
     font-family: sans-serif;
   }
+  #description{
+  margin-top: 60px;
+}
 </style> 
 
 <div id="plot">
 </div>
+
 <div id="description">
 </div>
 <script src="https://d3js.org/d3.v5.min.js"></script>
