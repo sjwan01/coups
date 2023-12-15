@@ -129,7 +129,7 @@ nas_by_year <- merged %>%
     year < 1990 ~ "1980-1989",
     year < 2000 ~ "1990-1999",
     year < 2010 ~ "2000-2009",
-    TRUE ~ "2010-2020"
+    TRUE ~ "2010-2022"
   )) %>%
   mutate(region = countrycode(cowcode, 
                               origin = "cown",
@@ -146,7 +146,7 @@ theme_heat <- theme_classic() +
 
 ggplot(nas_by_year, aes(x = region, y = year)) +
   geom_tile(aes(fill = sum_nas)) +
-  scale_fill_gradient(low = "white", high = "red") +
+  scale_fill_gradient(low = "yellow", high = "red") +
   labs(title = "Heatmap of Number of NAs by Year and Region",
        x = "Region",
        y = "Period",
@@ -155,3 +155,5 @@ ggplot(nas_by_year, aes(x = region, y = year)) +
 ```
 
 It turned out the our hypothesis is correct - coups took place in Latin America and Caribbean before 1960 explain most of the missing values. During this time period, coups happened outside of North America, South Asian, and Sub-Saharan Africa also contributed to the total count.
+
+Why are there blank areas? Because there are no coups in Canada and the United States until 2021. What happened in 2021? Check [January 6 United States Capitol attack](https://en.wikipedia.org/wiki/January_6_United_States_Capitol_attack#:~:text=In%20the%20early%20afternoon%20of,Capitol%20Building%20in%20Washington%2C%20D.C.).
