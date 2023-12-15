@@ -1,19 +1,29 @@
-// add your JavaScript/D3 to this file
-d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_couprisk.csv').then(function(data) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Series Histogram</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+  <script>
+    // Fetch data from CSV
+    d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_couprisk.csv').then(function(data) {
 
       // Set up the SVG container
-      const width = 600;
+      const width = 800;
       const height = 400;
       const margin = { top: 20, right: 20, bottom: 50, left: 50 };
 
-      const svg = d3.select("div#plot")
+      const svg = d3.select("body")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      // Create histogram
+      // Create a histogram
       const x = d3.scaleLinear()
         .domain([d3.min(data, d => +d.year), d3.max(data, d => +d.year)])
         .range([0, width]);
@@ -26,35 +36,6 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
       const y = d3.scaleLinear()
         .domain([0, d3.max(bins, d => d.length)])
         .range([height, 0]);
-
-      // Tooltip
-      const tooltip = d3.select("div#plot")
-        .append("div")
-        .style("position", "absolute")
-        .style("visibility", "hidden")
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "1px")
-        .style("padding", "5px");
-
-      // Mouseover function
-      function handleMouseOver(d) {
-        const averageCoupRisk = d3.mean(data.filter(coup => coup.year >= d.x0 && coup.year < d.x1), coup => +coup.couprisk);
-
-        tooltip.html(`Average Coup Risk: ${averageCoupRisk.toFixed(4)}`)
-          .style("visibility", "visible");
-
-        d3.select(this)
-          .attr("fill", "orange");
-      }
-
-      // Mouseout function
-      function handleMouseOut() {
-        tooltip.style("visibility", "hidden");
-
-        d3.select(this)
-          .attr("fill", "steelblue");
-      }
 
       // Create bars
       const bars = svg.selectAll("rect")
@@ -90,6 +71,29 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
         .style("text-anchor", "middle")
         .text("Number of Coups");
 
-      const descriptionDiv = d3.select("#description");
-      descriptionDiv.html("Here we have an interactive time series histogram, where the x-axis displays the years in 5-year intervals and the y-axis displays the count of coups. As the reader hovers over a bar, the bar gets highlighted and displays the average coup risk for the 5-year interval.");
+      // Tooltip
+      const tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "1px")
+        .style("padding", "5px");
+
+      // Mouseover function
+      function handleMouseOver(d) {
+        const averageCoupRisk = d3.mean(data.filter(coup => coup.year >= d.x0 && coup.year < d.x1), coup => +coup.couprisk);
+
+        tooltip.html(`Average Coup Risk: ${averageCoupRisk.toFixed(4)}`)
+          .style("visibility", "visible");
+      }
+
+      // Mouseout function
+      function handleMouseOut() {
+        tooltip.style("visibility", "hidden");
+      }
     });
+  </script>
+</body>
+</html>
