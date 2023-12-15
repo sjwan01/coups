@@ -1,7 +1,6 @@
 // add your JavaScript/D3 to this file
 d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_couprisk.csv').then(function(data) {
 
-      // Set up the SVG container
       const width = 600;
       const height = 400;
       const margin = { top: 20, right: 20, bottom: 50, left: 50 };
@@ -37,8 +36,8 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
         .style("border-width", "1px")
         .style("padding", "5px");
 
-      // Mouseover function
-      function handleMouseOver(d) {
+      // Interactive feature functions
+      function mousein(d) {
         const averageCoupRisk = d3.mean(data.filter(coup => coup.year >= d.x0 && coup.year < d.x1), coup => +coup.couprisk);
 
         tooltip.html(`Average Coup Risk: ${averageCoupRisk.toFixed(4)}`)
@@ -48,8 +47,7 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
           .attr("fill", "orange");
       }
 
-      // Mouseout function
-      function handleMouseOut() {
+      function mouseout() {
         tooltip.style("visibility", "hidden");
 
         d3.select(this)
@@ -65,8 +63,8 @@ d3.csv('https://raw.githubusercontent.com/mclaneliu01/coups/main/data/d3/year_co
         .attr("y", d => y(d.length))
         .attr("height", d => height - y(d.length))
         .attr("fill", "steelblue") // Change the color here
-        .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut);
+        .on("mouseover", mousein)
+        .on("mouseout", mouseout);
 
       // Add axes
       svg.append("g")
