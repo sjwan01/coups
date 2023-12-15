@@ -5,7 +5,7 @@ Coups are a subject that political scientists have studied for a long time. Char
 -   government officials could prepare policies ahead of time to respond to the new geopolitical environment, and
 -   investors could make plans in order to avoid economic loss.
 
-In this project, we will examine regime types of countries experiencing coups as a contributing factor to the coup events as well as their results. In general, regimes - the form of governments - can be categorized into democracies, non-democracies, and interim governments. Examples of sub-categories include presidential democracy, oligarchy, warlordism, so on and so forth.
+In this project, we will examine regime types of countries as a contributing factor to the coup events as well as their results. In general, regimes - the form of governments - can be categorized into democracies, non-democracies, and interim governments. Examples of sub-categories include presidential democracy, oligarchy, warlordism, so on and so forth.
 
 Given a historical list of past coup events (1945 - 2022), we explore the role of regime types during coups in relation to various other factors. For instance, how did political stability change across regime types? What distinguished attributes did the rulers have under different forms of government? Also, we want to examine how regimes behave differently - or similarly - during coups provided some set of factors: are parliamentary democratic governments similar to presidential democratic governments? Are democratic governments and autarchic governments on the opposite ends with respect to political violence?
 
