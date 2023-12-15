@@ -83,7 +83,7 @@ merged <- read.csv("./data/merged/coup_data.csv")
 
 Notice that, because observations in both datasets can be dated long ago, it can be expected that there will be many missing values, and they also depend on the geographical location - countries might not be able to provide data for particular measures at some time. In addition, while our data describes the political aspects of countries in a comprehensive manner, bear in mind that coups are also significantly related to economic and social attributes. Although our data provides no information concerning these, feel free to be inspired and add more features for further studies!
 
-## Research Plan (TODO)
+## Research Plan
 
 We merge the two datasets to provide a more comprehensive picture on the political backgrounds of the coups. Using a left join from the REIGN data to the CDP data, we introduce additional information such as the type of government, coup risk, level of political violence, among many others at the time of the coup. With the merged dataset, we seek to answer the questions posed in the introduction in the following ways:
 

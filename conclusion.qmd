@@ -1,1 +1,9 @@
 # Conclusion
+
+Key Takeaways: While personal dictatorships face the highest coup likelihood, the similarity in coup frequencies between democratic and certain non-democratic regimes challenge conventional assumptions. On the other hand, analysis of political violence uncovers instances of high violence in democracies. Temporal dynamics show democratic leaders' longer tenures, while monarchies are more prone to coups. Surprisingly, democracies exhibit resilience, surviving more coup attempts than succumbing. Time series analysis on the number of coups reveals that coups seem to be periodic events, with non-democratic governments contributing the most number of coups. Time series analysis on the probability of coups, however, show that coups are less and less likely to happen, with provisional governments more likely to encounter coups than non-democratic governments.
+
+Limitations & Future Directions: Limitations include potential data inaccuracies and the study's temporal scope. Future studies will likely benefit from in-depth case studies and qualitative analyses. 
+
+Key Lessons Learned: We need to acknowledge the contextual nature of political dynamics, employ careful data interpretation, and understand the importance of continuous iteration to capture evolving political landscapes. 
+
+All in all, this project intends to contribute to a comprehensive understanding of regime dynamics and coup occurrences, acknowledging their multifaceted nature and the need for constant reassessment.
